@@ -134,5 +134,3 @@ out
 Test.local.ts
 Test.local.js
 
-model.onnx
-main.wasm
