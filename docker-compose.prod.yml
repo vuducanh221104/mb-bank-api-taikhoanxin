@@ -1,0 +1,15 @@
+services:
+  mb-bank-api:
+    image: ${MB_BANK_API_IMAGE}
+    container_name: mb-bank-api
+    restart: unless-stopped
+    env_file:
+      - /opt/TaiKhoanXin/Production/env/mbbankapi.env
+    ports:
+      - "${HOST_PORT:-5001}:5001"
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:5001/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

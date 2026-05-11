@@ -1,0 +1,13 @@
+node_modules
+dist
+npm-debug.log*
+.git
+.github
+.env
+.env.*
+Dockerfile
+docker-compose*.yml
+docs
+coverage
+.DS_Store
+*.tsbuildinfo

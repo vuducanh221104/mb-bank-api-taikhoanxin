@@ -6,8 +6,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "api": "ts-node src/Api.ts",
-    "start": "ts-node src/Api.ts",
-    "build": "tsup src/index.ts",
+    "start": "node dist/Api.js",
+    "start:dev": "ts-node src/Api.ts",
+    "build": "tsc",
+    "build:lib": "tsup src/index.ts",
     "doc": "typedoc"
   },
   "repository": {
