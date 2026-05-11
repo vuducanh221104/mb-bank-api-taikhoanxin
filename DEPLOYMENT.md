@@ -6,10 +6,6 @@ CI/CD runs automatically when code is pushed to the `main` branch.
 
 Create these secrets in GitHub repository settings:
 
-- `PROD_HOST`: production server IP/domain.
-- `PROD_USER`: SSH username on the production server.
-- `PROD_SSH_KEY`: private SSH key that can access the production server.
-- `PROD_SSH_PORT`: SSH port. Use `22` if unsure.
 - `DOCKERHUB_USERNAME`: Docker Hub username, for example `taikhoanxin`.
 - `DOCKERHUB_TOKEN`: Docker Hub access token.
 
@@ -61,19 +57,24 @@ git push origin main
 GitHub Actions will:
 
 1. Build the Docker image.
-2. Push it to Docker Hub as `taikhoanxin/tkx-mb-bank-api`.
-3. SSH into the production server.
-4. Use `/opt/TaiKhoanXin/Production/env/mbbankapi.env`.
-5. Pull and restart the `mb-bank-api` container.
+2. Push it to Docker Hub as `taikhoanxin/tkx-mb-bank-api:prod`.
+
+Deploy manually on the production server:
+
+```bash
+cd /opt/TaiKhoanXin/Production
+docker compose -f docker-compose.prod.yml pull
+docker compose -f docker-compose.prod.yml up -d --force-recreate
+```
 
 ## Verify
 
 On the production server:
 
 ```bash
-cd /opt/mb-bank-api
+cd /opt/TaiKhoanXin/Production
 docker compose -f docker-compose.prod.yml ps
-docker logs -f mb-bank-api
+docker logs -f tkx-mb-bank-api
 curl http://localhost:5001/health
 curl "http://localhost:5001/transactions/MB"
 ```
